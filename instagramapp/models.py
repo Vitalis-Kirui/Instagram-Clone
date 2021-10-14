@@ -11,6 +11,15 @@ class Profile(models.Model):
     def __str__(self):
         return self.user.username
 
+    def save_profile(self):
+        self.save()
+
+    def delete_profile(self):
+        self.delete()  
+
+    def update_profile(cls, id):
+        Profile.objects.get(user_id=id)
+
 class Image(models.Model):
     img_name = models.CharField(max_length=80,blank=True)
     caption = models.CharField(max_length=500)
@@ -22,6 +31,12 @@ class Image(models.Model):
     def __str__(self):
         return self.img_name
 
+    def save_post(self):
+        return self.save()
+
+    def delete_post(self):
+        self.delete()
+
 class Comment(models.Model):
     comment = models.TextField()
     post= models.ForeignKey(Image, on_delete=models.CASCADE)
@@ -31,3 +46,9 @@ class Comment(models.Model):
 
     def __str__(self):
         return f'{self.user.user} Image'
+
+    def save_comment(self):
+        self.user
+
+    def delete_comment(self):
+        self.delete()
