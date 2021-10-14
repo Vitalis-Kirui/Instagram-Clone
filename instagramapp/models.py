@@ -21,3 +21,13 @@ class Image(models.Model):
 
     def __str__(self):
         return self.img_name
+
+class Comment(models.Model):
+    comment = models.TextField()
+    post= models.ForeignKey(Image, on_delete=models.CASCADE)
+    user= models.ForeignKey(Profile, on_delete=models.CASCADE)
+    date = models.DateTimeField(auto_now_add=True, null=True)
+
+
+    def __str__(self):
+        return f'{self.user.user} Image'
