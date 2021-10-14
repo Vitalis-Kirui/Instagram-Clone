@@ -6,4 +6,4 @@ def homepage(request):
     """
     View function to display homepage content
     """
-    return render(request, 'home.html')
+    return render(request, 'all-templates/home.html')
