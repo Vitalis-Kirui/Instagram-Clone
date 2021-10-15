@@ -2,6 +2,7 @@ from django.shortcuts import render,redirect
 from django.forms.widgets import DateTimeInput
 from django.http.response import HttpResponse, HttpResponseRedirect
 from instagramapp.models import Comment, Image, Profile
+from django.contrib import messages
 
 # Create your views here.
 def homepage(request):
@@ -13,6 +14,20 @@ def homepage(request):
     comment = Comment.objects.all()
 
     return render(request, 'all-templates/home.html',{"posts":posts,"profile":profile,"comment":comment})
+
+def signup(request):
+    if request.method == 'POST':
+        form = SignUpForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = request.POST['username']
+            password = request.POST['password']
+            email = request.POST['email']
+            user = User.objects.create_user(username=username, email=email,password=password)
+            return HttpResponse('Thank you for registering with us')
+    else:
+        form = SignUpForm()
+    return render(request, 'registration_form.html', {'form': form})
 
 def search(request): 
     if 'profile' in request.GET and request.GET['profile']:
