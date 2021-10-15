@@ -6,6 +6,7 @@ from instagramapp.forms import CommentForm, NewPostForm, SignUpForm, UpdateProfi
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.conf import settings
+from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404, redirect, render
 
 # Create your views here.
