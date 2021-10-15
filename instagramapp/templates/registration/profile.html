@@ -1,7 +1,6 @@
 {% extends 'registration/base.html' %}
 {% load bootstrap3 %}
 {%block content%}
-
 <style>
     .profile_pic {
         width: 150px;
@@ -28,8 +27,7 @@
         <div class="media-body view-profile">
             <div class="row">
                 <div class="col-md-12">
-                    <h2>{{user.username}} 
-                        
+                    <h2>{{user.username}}
                     </h2>
                 </div>
             </div>
@@ -90,6 +88,7 @@
                 <h5 class="card-title"><span class="" style="font-weight: 700;">{{img.profile}}</span>
                     {{img.caption|slice:":20"}}...
                 </h5>
+
                 <br> <br>
             </div>
         </div>

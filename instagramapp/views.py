@@ -2,9 +2,10 @@ from django.shortcuts import render,redirect
 from django.forms.widgets import DateTimeInput
 from django.http.response import HttpResponse, HttpResponseRedirect
 from instagramapp.models import Comment, Image, Profile
-from instagramapp.forms import SignUpForm
+from instagramapp.forms import SignUpForm, UpdateProfileForm, UpdateUserForm, NewPostForm
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.conf import settings
 
 # Create your views here.
 @login_required(login_url='/accounts/login/')
@@ -66,3 +67,22 @@ def search(request):
     else:
         message = "You haven't entered anything to search. Please enter a user profile to search."
     return render(request, 'all-templates/search.html', {'message': message})
+
+@login_required(login_url='/accounts/login/')
+def new_post(request):
+    current_user = request.user
+    profile = Profile.objects.get(user = current_user)
+    if request.method == 'POST':
+        form = NewPostForm(request.POST, request.FILES)        
+        if form.is_valid():
+            image=form.cleaned_data.get('image')
+            caption=form.cleaned_data.get('caption')
+            post = Image(image = image,caption= caption, profile=profile)
+            post.save()  
+        else:
+            print(form.errors)
+        return redirect('index')
+    else:
+        form = NewPostForm()
+
+    return render(request, 'new_post.html', {"form": form})
