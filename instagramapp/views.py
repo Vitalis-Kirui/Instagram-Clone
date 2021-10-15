@@ -2,9 +2,12 @@ from django.shortcuts import render,redirect
 from django.forms.widgets import DateTimeInput
 from django.http.response import HttpResponse, HttpResponseRedirect
 from instagramapp.models import Comment, Image, Profile
+from instagramapp.forms import SignUpForm
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
+@login_required(login_url='/accounts/login/')
 def homepage(request):
     """
     View function to display homepage content
@@ -29,6 +32,7 @@ def signup(request):
         form = SignUpForm()
     return render(request, 'registration_form.html', {'form': form})
 
+@login_required(login_url='/accounts/login/')
 def search(request): 
     if 'profile' in request.GET and request.GET['profile']:
         user = request.GET.get("profile")
