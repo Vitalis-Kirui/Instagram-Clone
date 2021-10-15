@@ -32,6 +32,13 @@ def signup(request):
         form = SignUpForm()
     return render(request, 'registration_form.html', {'form': form})
 
+@login_required(login_url='/accounts/login/')    
+def show_profile(request):
+    current_user= request.user
+    images= Image.objects.filter(profile=current_user.id).all
+
+    return render(request, 'registration/profile.html',{"images":images} )
+
 @login_required(login_url='/accounts/login/')
 def search(request): 
     if 'profile' in request.GET and request.GET['profile']:
