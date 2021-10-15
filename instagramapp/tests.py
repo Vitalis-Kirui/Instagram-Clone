@@ -49,6 +49,12 @@ class ImageTestClass(TestCase):
         img = Profile.objects.all()
         self.assertTrue(len(img) <= 1)
 
+    def test_get_image_by_id(self):
+        self.newImage.save_post()
+        img = self.newImage.get_image_by_id(self.newImage.id)
+        images = Image.objects.filter(id=self.newImage.id)
+        self.assertTrue(img, images)  
+
 class CommentTestCase(TestCase):
     def setUp(self):
         self.user = User(username='vitalis')
