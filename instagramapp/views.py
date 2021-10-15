@@ -6,6 +6,7 @@ from instagramapp.forms import CommentForm, NewPostForm, SignUpForm, UpdateProfi
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.conf import settings
+from django.shortcuts import get_object_or_404, redirect, render
 
 # Create your views here.
 def homepage(request):
@@ -103,4 +104,4 @@ def comment(request,id):
     else:
         form = CommentForm()
 
-    return render(request,'comment.html',{"form":form,"images":images,"comments":post_comment})
+    return render(request,'all-templates/comment.html',{"form":form,"images":images,"comments":post_comment})
