@@ -15,6 +15,17 @@
                 <a class="navbar-brand" href="{% url 'home' %}">Ptalz Insta-Clone</a>
             </div>
 
+                        <div class="collapse navbar-collapse" id="navbarToggle">
+                        
+                            <div class="navbar-right">
+                                <ul class="navbar-nav mr-auto" style="list-style: none">
+                                    {% if user.is_authenticated %}
+                                    <a href="/logout" class="navbar-brand">
+                                        Sign out</a>
+                                    {% endif %}
+                                </ul>
+                            </div>
+
         <div class="col-sm-4 col-md-4 navbar-right">
             <form class="navbar-form" role="search" action="{% url 'search' %}">
                 <div class="input-group">
