@@ -2,7 +2,7 @@ from django.shortcuts import render,redirect
 from django.forms.widgets import DateTimeInput
 from django.http.response import HttpResponse, HttpResponseRedirect
 from instagramapp.models import Comment, Image, Profile
-from instagramapp.forms import SignUpForm, UpdateProfileForm, UpdateUserForm, NewPostForm
+from instagramapp.forms import CommentForm, NewPostForm, SignUpForm, UpdateProfileForm, UpdateUserForm
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.conf import settings
@@ -84,3 +84,23 @@ def new_post(request):
     else:
         form = NewPostForm()
     return render(request, 'all-templates/new_post.html', {"form": form})
+
+@login_required(login_url='/accounts/login/')
+def comment(request,id):
+    post_comment = Comment.objects.filter(post= id)
+    images = Image.objects.filter(id=id).all()
+    current_user = request.user
+    profile = Profile.objects.get(user = current_user)
+    image = get_object_or_404(Image, id=id)
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit = False)
+            comment.post = image
+            comment.user = profile
+            comment.save()
+            return HttpResponseRedirect(request.path_info)
+    else:
+        form = CommentForm()
+
+    return render(request,'comment.html',{"form":form,"images":images,"comments":post_comment})
