@@ -81,8 +81,8 @@ def new_post(request):
             post.save()  
         else:
             print(form.errors)
-        return redirect('index')
+        return redirect('home')
     else:
         form = NewPostForm()
 
-    return render(request, 'new_post.html', {"form": form})
+    return render(request, 'all-templates/new_post.html', {"form": form})
