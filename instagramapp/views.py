@@ -8,7 +8,6 @@ from django.contrib.auth.decorators import login_required
 from django.conf import settings
 
 # Create your views here.
-@login_required(login_url='/accounts/login/')
 def homepage(request):
     """
     View function to display homepage content
@@ -84,5 +83,4 @@ def new_post(request):
         return redirect('home')
     else:
         form = NewPostForm()
-
     return render(request, 'all-templates/new_post.html', {"form": form})
