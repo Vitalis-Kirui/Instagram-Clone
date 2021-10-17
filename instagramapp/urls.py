@@ -1,4 +1,5 @@
 from django.urls import path
+from django.conf.urls import url
 from . import views
 from django.conf import settings
 from django.conf.urls.static import static
@@ -10,5 +11,6 @@ urlpatterns=[
     path(r'profile',views.show_profile, name='profile'),
     path(r'update/<id>', views.update_profile, name='update_profile'),
     path('posts/',views.new_post, name='post'),
-    path('comment/<id>', views.comment, name='comment')
+    path('comment/<id>', views.comment, name='comment'),
+    path(r'accounts/profile/',views.show_profile, name='profile'),
 ]

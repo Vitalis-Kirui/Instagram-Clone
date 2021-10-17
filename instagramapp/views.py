@@ -10,16 +10,6 @@ from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404, redirect, render
 
 # Create your views here.
-def homepage(request):
-    """
-    View function to display homepage content
-    """
-    posts = Image.objects.all()
-    profile = Profile.objects.all()
-    comment = Comment.objects.all()
-
-    return render(request, 'all-templates/home.html',{"posts":posts,"profile":profile,"comment":comment})
-
 def signup(request):
     if request.method == 'POST':
         form = SignUpForm(request.POST)
@@ -33,6 +23,17 @@ def signup(request):
     else:
         form = SignUpForm()
     return render(request, 'registration_form.html', {'form': form})
+
+@login_required(login_url='/accounts/login/')
+def homepage(request):
+    """
+    View function to display homepage content
+    """
+    posts = Image.objects.all()
+    profile = Profile.objects.all()
+    comment = Comment.objects.all()
+
+    return render(request, 'all-templates/home.html',{"posts":posts,"profile":profile,"comment":comment})
 
 @login_required(login_url='/accounts/login/')    
 def show_profile(request):
