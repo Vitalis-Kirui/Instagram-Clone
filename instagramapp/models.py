@@ -28,7 +28,7 @@ class Profile(models.Model):
 class Image(models.Model):
     img_name = models.CharField(max_length=80,blank=True)
     caption = models.CharField(max_length=500)
-    profile = models.ForeignKey(Profile,on_delete = models.CASCADE)
+    profile = models.ForeignKey(Profile,on_delete = models.CASCADE,null=True)
     likes = models.ManyToManyField(User, related_name='likes', blank=True)
     comments = models.CharField(max_length=100,blank=True)
     image = CloudinaryField('images')
@@ -54,7 +54,7 @@ class Image(models.Model):
 class Comment(models.Model):
     comment = models.TextField()
     post= models.ForeignKey(Image, on_delete=models.CASCADE)
-    user= models.ForeignKey(Profile, on_delete=models.CASCADE)
+    user= models.ForeignKey(Profile, on_delete=models.CASCADE,null=True)
     date = models.DateTimeField(auto_now_add=True, null=True)
 
 
